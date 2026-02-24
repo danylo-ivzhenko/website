@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    container_name: danylevskii-space
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      # Persist SQLite database outside container
+      - ./data:/app/prisma
+      # Persist uploaded images outside container
+      - ./storage:/app/public/storage
