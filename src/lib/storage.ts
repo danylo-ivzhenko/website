@@ -13,17 +13,16 @@ export async function ensureStorageDirs() {
 
 /**
  * Create a studio folder immediately.
- * Called when a new studio is created.
+ * Uses hyphens instead of spaces for safer URLs.
  */
 export async function createStudioFolder(studioName: string) {
-  const folderName = `${studioName} Studio`;
+  const folderName = `${studioName.replace(/\s+/g, "-")}-Studio`;
   const dirPath = path.join(STORAGE_DIR, folderName);
   await mkdir(dirPath, { recursive: true });
 }
 
 /**
- * Save a studio logo to public/storage/logos/{name}_studio.{ext}
- * Returns the URL path (relative to public).
+ * Save a studio logo.
  */
 export async function saveStudioLogo(
   file: File,
@@ -43,14 +42,13 @@ export async function saveStudioLogo(
 }
 
 /**
- * Save series images to public/storage/{StudioName} Studio/
- * Returns an array of URL paths.
+ * Save series images.
  */
 export async function saveSeriesImages(
   files: File[],
   studioName: string
 ): Promise<string[]> {
-  const folderName = `${studioName} Studio`;
+  const folderName = `${studioName.replace(/\s+/g, "-")}-Studio`;
   const dirPath = path.join(STORAGE_DIR, folderName);
   await mkdir(dirPath, { recursive: true });
 
@@ -58,7 +56,6 @@ export async function saveSeriesImages(
 
   for (const file of files) {
     const ext = file.name.split(".").pop() || "png";
-    // Sanitize: replace spaces and special chars with underscores
     const baseName = file.name
       .replace(/\.[^.]+$/, "")
       .replace(/\s+/g, "_")
@@ -69,7 +66,6 @@ export async function saveSeriesImages(
     const buffer = Buffer.from(await file.arrayBuffer());
     await writeFile(filePath, buffer);
 
-    // No encodeURIComponent — the folder/file names are already sanitized
     urls.push(`/storage/${folderName}/${fileName}`);
   }
 
@@ -77,26 +73,26 @@ export async function saveSeriesImages(
 }
 
 /**
- * Delete a file from the public directory given its URL path.
+ * Delete a file.
  */
 export async function deleteFile(urlPath: string): Promise<void> {
   const filePath = path.join(PUBLIC_DIR, urlPath);
   try {
     await unlink(filePath);
   } catch {
-    // File may already be deleted — ignore
+    // Ignore
   }
 }
 
 /**
- * Delete the entire studio folder from public/storage/{StudioName} Studio/
+ * Delete the entire studio folder.
  */
 export async function deleteStudioFolder(studioName: string): Promise<void> {
-  const folderName = `${studioName} Studio`;
+  const folderName = `${studioName.replace(/\s+/g, "-")}-Studio`;
   const dirPath = path.join(STORAGE_DIR, folderName);
   try {
     await rm(dirPath, { recursive: true, force: true });
   } catch {
-    // Folder may not exist — ignore
+    // Ignore
   }
 }

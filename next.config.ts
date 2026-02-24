@@ -4,11 +4,10 @@ const nextConfig: NextConfig = {
   output: "standalone",
   images: {
     remotePatterns: [],
-    unoptimized: false,
+    unoptimized: true,
   },
   serverExternalPackages: ["bcryptjs"],
   experimental: {
-    // Increase body size limit for server action file uploads (50MB)
     serverActions: {
       bodySizeLimit: "50mb",
     },
