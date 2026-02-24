@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // Standalone mode was hiding the 'public' folder images. Switching back to standard.
   images: {
     remotePatterns: [],
     unoptimized: true,
