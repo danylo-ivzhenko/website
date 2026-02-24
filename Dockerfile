@@ -11,13 +11,14 @@ COPY . .
 RUN npx prisma generate
 RUN npm run build
 
-# Next.js will serve the public folder normally in this mode
+# Storage and data folders
+RUN mkdir -p /app/public/storage/logos /app/data && \
+    chown -R root:root /app
+
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 ENV NODE_ENV=production
 
-# Ensure storage and data folders exist
-RUN mkdir -p /app/public/storage/logos /app/data
-
+# The standard 'npm start' handles 'public' folder correctly
 CMD ["npm", "start"]
