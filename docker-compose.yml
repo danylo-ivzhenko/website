@@ -8,7 +8,7 @@ services:
     env_file:
       - .env
     volumes:
-      # Persist SQLite database outside container
-      - ./data:/app/prisma
+      # Persist SQLite database outside container in a dedicated folder
+      - ./data:/app/data
       # Persist uploaded images outside container
       - ./storage:/app/public/storage

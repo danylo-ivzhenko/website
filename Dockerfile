@@ -13,11 +13,15 @@ RUN npm run build
 
 # Ensure storage and db directories exist and are writable
 RUN mkdir -p /app/public/storage/logos && \
-    mkdir -p /app/prisma
+    mkdir -p /app/data && \
+    chown -R node:node /app/public/storage && \
+    chown -R node:node /app/data
+
+# Use a standard user provided by the node image
+USER node
 
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Use npm start directly to ensure we can run migrations etc. easily
 CMD ["npm", "start"]
