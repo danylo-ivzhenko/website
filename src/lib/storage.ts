@@ -38,7 +38,7 @@ export async function saveStudioLogo(
   const buffer = Buffer.from(await file.arrayBuffer());
   await writeFile(filePath, buffer);
 
-  return `/storage/logos/${fileName}`;
+  return `/api/storage/logos/${fileName}`;
 }
 
 /**
@@ -66,7 +66,7 @@ export async function saveSeriesImages(
     const buffer = Buffer.from(await file.arrayBuffer());
     await writeFile(filePath, buffer);
 
-    urls.push(`/storage/${folderName}/${fileName}`);
+    urls.push(`/api/storage/${folderName}/${fileName}`);
   }
 
   return urls;
@@ -76,7 +76,9 @@ export async function saveSeriesImages(
  * Delete a file.
  */
 export async function deleteFile(urlPath: string): Promise<void> {
-  const filePath = path.join(PUBLIC_DIR, urlPath);
+  // Strip /api prefix if present to get real file path
+  const cleanPath = urlPath.replace(/^\/api/, "");
+  const filePath = path.join(PUBLIC_DIR, cleanPath);
   try {
     await unlink(filePath);
   } catch {

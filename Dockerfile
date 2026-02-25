@@ -15,10 +15,13 @@ RUN npm run build
 RUN mkdir -p /app/public/storage/logos /app/data && \
     chown -R root:root /app
 
+# Make entrypoint executable
+RUN chmod +x /app/docker-entrypoint.sh
+
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 ENV NODE_ENV=production
 
-# The standard 'npm start' handles 'public' folder correctly
-CMD ["npm", "start"]
+# Use entrypoint that runs migrations + seed + path fix before starting
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
