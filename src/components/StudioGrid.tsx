@@ -67,7 +67,6 @@ export default function StudioGrid({ studios, isAdminActive }: StudioGridProps) 
                       className="studio-logo-img"
                     />
                   </div>
-                  <span className="studio-card-name">{studio.name}</span>
                 </Link>
                 {isAdminActive && (
                   <button
