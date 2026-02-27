@@ -13,8 +13,8 @@
 body {
   background-color: #3a3a3a;
   color: #d3c8c1;
-  font-family: var(--font-montserrat), Montserrat, Impact, "Arial Black", Arial,
-    sans-serif;
+  font-family:
+    var(--font-montserrat), Montserrat, Impact, "Arial Black", Arial, sans-serif;
   min-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
@@ -305,8 +305,8 @@ body {
 
 .section-title-text {
   display: inline-block;
-  font-family: var(--font-montserrat), Montserrat, Impact, "Arial Black", Arial,
-    sans-serif;
+  font-family:
+    var(--font-montserrat), Montserrat, Impact, "Arial Black", Arial, sans-serif;
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -354,7 +354,9 @@ body {
   gap: 14px;
   text-decoration: none;
   color: #d3c8c1;
-  transition: transform 0.25s ease, opacity 0.2s;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s;
   cursor: pointer;
 }
 
@@ -786,8 +788,16 @@ body {
     padding: 0 16px;
   }
 
+  .studio-grid {
+    gap: 24px;
+  }
+
   .studio-grid-row {
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    justify-items: center;
   }
 
   .studio-logo-wrapper {
@@ -802,10 +812,16 @@ body {
 
   .studio-card-name {
     font-size: 11px;
+    max-width: 90px;
   }
 
   .series-card {
     max-width: 100%;
+  }
+
+  .admin-toggle-btn {
+    padding: 10px 20px;
+    font-size: 13px;
   }
 }
 
@@ -816,6 +832,21 @@ body {
 
   .user-menu-trigger span:not(.user-avatar) {
     display: none;
+  }
+
+  .studio-logo-wrapper {
+    width: 68px;
+    height: 68px;
+  }
+
+  .studio-logo-img {
+    width: 68px;
+    height: 68px;
+  }
+
+  .studio-card-name {
+    font-size: 10px;
+    max-width: 76px;
   }
 }
 
@@ -926,4 +957,185 @@ body {
   .users-id-cell {
     font-size: 10px;
   }
+}
+
+/* ============================================
+   CONFIRM MODAL
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+.modal-overlay.modal-closing {
+  animation: modalFadeOut 0.2s ease-in forwards;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.modal-dialog {
+  background: #2e2e2e;
+  border: 1px solid rgba(211, 200, 193, 0.15);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  animation: modalSlideIn 0.25s ease-out;
+}
+
+.modal-dialog.modal-dialog-closing {
+  animation: modalSlideOut 0.2s ease-in forwards;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalSlideOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+}
+
+.modal-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(232, 96, 90, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: #e8605a;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #d3c8c1;
+  margin-bottom: 8px;
+}
+
+.modal-message {
+  font-size: 14px;
+  color: rgba(211, 200, 193, 0.55);
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.modal-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal-btn-cancel {
+  background: rgba(211, 200, 193, 0.08);
+  border: 1px solid rgba(211, 200, 193, 0.15);
+  color: #d3c8c1;
+}
+
+.modal-btn-cancel:hover:not(:disabled) {
+  background: rgba(211, 200, 193, 0.14);
+}
+
+.modal-btn-danger {
+  background: #e8605a;
+  color: #fff;
+}
+
+.modal-btn-danger:hover:not(:disabled) {
+  background: #d44d47;
+}
+
+.modal-btn-confirm {
+  background: linear-gradient(135deg, #c9a96e, #a07c4a);
+  color: #1a1a1a;
+}
+
+.modal-btn-confirm:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* ============================================
+   DRAG & DROP
+   ============================================ */
+
+.series-upload-zone {
+  transition: all 0.25s ease;
+}
+
+.series-upload-zone.drag-active {
+  border-color: #c9a96e;
+  background: rgba(201, 169, 110, 0.1);
+  color: #c9a96e;
+  transform: scale(1.01);
+}
+
+.drop-file-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.drop-file-tag {
+  padding: 4px 10px;
+  background: rgba(201, 169, 110, 0.12);
+  border-radius: 6px;
+  font-size: 11px;
+  color: #c9a96e;
+  font-weight: 500;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

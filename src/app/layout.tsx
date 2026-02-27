@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
@@ -13,6 +13,18 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "danylevskii.space",
   description: "Explore tv studios and their series collections.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icon-512.png",
+    apple: "/icon-512.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#3a3a3a",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -43,6 +55,19 @@ export default function RootLayout({
             </a>
           </div>
         </footer>
+
+        {/* Service Worker registration for PWA */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js').catch(() => {});
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );

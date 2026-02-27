@@ -1,0 +1,18 @@
+{
+  "name": "danylevskii.space",
+  "short_name": "danylevskii",
+  "description": "Explore TV studios and their series collections.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#3a3a3a",
+  "theme_color": "#3a3a3a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
