@@ -789,15 +789,15 @@ body {
   }
 
   .studio-grid {
-    gap: 24px;
-  }
-
-  .studio-grid-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    width: 100%;
+    gap: 20px;
     justify-items: center;
+  }
+
+  /* Make rows invisible — items flow into the parent grid */
+  .studio-grid-row {
+    display: contents;
   }
 
   .studio-logo-wrapper {
